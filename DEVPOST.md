@@ -15,31 +15,49 @@ Link is an interoperable AI safety net that automates the "Last Mile" of patient
 *   **The Digital Sentry (MCP)**: Link deploys an MCP (Model Context Protocol) Server that "stays behind" at the hospital. It continuously polls the FHIR server for any tests that were "Pending" at discharge. The moment a result turns "Final," Link’s intelligence analyzes it for clinical urgency.
 *   **The Safety Reconciliation**: Link automatically compares the new hospital medications with the patient's existing home records (via FHIR MedicationRequest), flagging dangerous overlaps or omissions instantly.
 *   **Contextual Intelligence (SHARP)**: Link uses the **SHARP** (Secure Healthcare Agent Resource Propagation) extension pattern to securely propagate patient IDs and FHIR tokens. It ensures that the family doctor receives a "Smart Brief" instead of a 20-page PDF, highlighting only the "Red Flags" and required actions.
-*   **Closed-Loop Action**: Instead of a passive notification, Link generates clear, clinically-grounded summaries that lead to real-world medical action, ensuring "ghost results" are finally addressed.
+
+---
+
+## 🧠 The Link Competitive Edge: Judging Criteria
+
+### 1. The AI Factor: Reasoning Over Rules
+Traditional rule-based software fails in the messy, high-stakes environment of patient transitions. Rules are brittle; they can't easily correlate a "Preliminary" INR result with a patient's specific Stage 3 Kidney Disease and their Warfarin dosage in a way that feels human and actionable. 
+**Link leverages Generative AI** to perform **Clinical Reasoning.** It doesn't just trigger an alert; it synthesizes *why* a result matters, predicts the potential complication, and drafts a prioritized action plan. It handles the nuances of medical language and inconsistent FHIR data that would break a traditional system.
+
+### 2. Potential Impact: Saving Lives & Revenue
+Link addresses a massive pain point in the US healthcare system: **The 30-day readmission.**
+*   **Improved Outcomes**: By catching "Ghost Results" within 24 hours instead of 2 weeks, we prevent life-threatening events like internal bleeding or acute kidney failure.
+*   **Cost Reduction**: Hospitals currently face millions in CMS penalties. Link provides a clear hypothesis for ROI: by reducing avoidable readmissions through automated auditing, hospitals protect their revenue and reduce the burden on overstretched nursing staff.
+
+### 3. Feasibility: Real-World Architecture
+Link is not "vaporware"—it is built for the healthcare systems of today.
+*   **Data Privacy**: Link uses a **Stateless Architecture.** No patient data is ever stored on the MCP server. It acts as a real-time bridge, fetching data only when secure context is provided.
+*   **Regulatory Compliance**: By leveraging the **HL7 FHIR R4 standard**, Link is compatible with any modern EHR (Epic, Cerner). 
+*   **Security**: Our implementation of the **SHARP extension** ensures that FHIR tokens and Patient IDs are propagated securely through metadata, respecting HIPAA-level data handling standards while enabling the power of AI.
+
+---
 
 ## 🛠️ How we built it
 We built Link with a focus on interoperability, security, and statelessness:
-*   **Standardized Interoperability**: Built on **HL7 FHIR R4**, ensuring compatibility with major EHR providers like Epic, Cerner, and Google Cloud Healthcare API.
-*   **Model Context Protocol (MCP)**: Leveraged **FastMCP** to create a secure, discovery-based toolset that agents can use to "see" into the hospital's data lake.
-*   **SHARP Extension Pattern**: Implemented a custom capability patching system in the MCP server to support dynamic FHIR context injection (URLs and Bearer tokens) via metadata.
-*   **Python Stack**: Used a modular Python architecture for the MCP server, with specialized tools for `DiagnosticReport`, `MedicationRequest`, and `Condition` resources.
+*   **Standardized Interoperability**: Built on **HL7 FHIR R4**.
+*   **Model Context Protocol (MCP)**: Leveraged **FastMCP** for a secure, discovery-based toolset.
+*   **Python Stack**: Used a modular Python architecture with specialized tools for `DiagnosticReport`, `MedicationRequest`, and `Condition` resources.
 
 ## 🚧 Challenges we ran into
-*   **FHIR Complexity**: Mapping nested and often inconsistent FHIR JSON resources into clean, concise snippets that an LLM can reason over without hitting token limits.
-*   **Stateless Security**: Implementing the SHARP context propagation was challenging. We had to ensure that the MCP server never "stored" credentials but could still securely authenticate against the FHIR server for every request.
-*   **Closing the Loop**: Designing the logic to differentiate between a "Normal" result and a "Red Flag" result that requires immediate PCP intervention.
+*   **FHIR Complexity**: Mapping nested FHIR JSON resources into clean, LLM-ready snippets.
+*   **Stateless Security**: Implementing the SHARP context propagation to ensure the server remains a "zero-trust" bridge.
 
 ## 🏆 Accomplishments that we're proud of
-*   **True Interoperability**: Successfully querying live FHIR sandboxes and returning structured clinical intelligence.
-*   **Zero-Trust Architecture**: Building a system where the AI never sees patient data unless the secure FHIR context is explicitly provided by the host platform.
-*   **Impactful UX**: Moving beyond "AI Chat" to "AI Actions" by focusing on the 72-hour window where patient lives are most at risk.
+*   **True Interoperability**: Successfully querying live FHIR sandboxes.
+*   **Impactful UX**: Moving beyond "AI Chat" to "AI Actions" during the critical 72-hour window.
 
 ## 📖 What we learned
-*   **Standardization is Key**: MCP is the "missing link" for enterprise AI. It allows us to build medical tools once and deploy them across any AI platform.
-*   **The Power of Small Tools**: We learned that specific, atomic tools (like `GetPendingLabs`) are much more effective for clinical safety than general-purpose "EHR search" tools.
-*   **Agent Orchestration**: The transition from hospital to clinic isn't just a data transfer—it's a human handoff that requires an AI to act as a "Transition Specialist."
+*   **Standardization is Key**: MCP is the "missing link" for enterprise AI. 
+*   **Agent Orchestration**: Handoffs require an AI to act as a "Transition Specialist."
 
 ## 🔮 What's next for Link
-*   **SMART on FHIR Launch**: Integrating Link directly into the clinician's workflow inside the EHR dashboard.
-*   **Predictive Risk Scoring**: Using historical FHIR data to predict which patients are at the highest risk of readmission *before* they even leave the hospital.
-*   **Patient-Facing Instructions**: Generating simple, multilingual discharge summaries that are automatically pushed to the patient's mobile device via secure channels.
+*   **SMART on FHIR Launch**: Integrating Link directly into the clinician's workflow.
+*   **Predictive Risk Scoring**: Using historical data to predict readmission risks.
+
+---
+Built with ❤️ for the **Prompt Opinion / MCP Hackathon**.
