@@ -1,55 +1,38 @@
-# 🔗 Link: Transition of Care Specialist
+# 🔗 Link: Post-Discharge Clinical MCP Server
 
-> **Resolving the "Post-Discharge Black Hole" with AI-Driven Clinical Intelligence.**
+> **Interoperable Medical Superpowers for AI Agents via FHIR.**
 
-Link is a specialized AI agent designed to bridge the dangerous gap in patient care that occurs during the transition from hospital to home—a period often referred to as the "Post-Discharge Black Hole."
+The Link MCP Server is a specialized medical toolset designed to resolve the "Post-Discharge Black Hole"—the dangerous gap in care that occurs when patients leave the hospital before all lab results are finalized.
 
-## 🚑 The Problem
-Every year, thousands of patients are discharged from hospitals before all their laboratory results are finalized. These "ghost labs"—tests ordered in-patient but resulted post-discharge—frequently go unreviewed, leading to medication errors, missed diagnoses, and avoidable readmissions.
+## 🚑 The Problem: "Ghost Labs"
+Every year, thousands of patients are discharged from hospitals before all their laboratory results are finalized. These "ghost labs" frequently go unreviewed, leading to medication errors, missed diagnoses, and avoidable readmissions.
 
-## 🛡️ The Solution: Link
-Link acts as a **Transition of Care Specialist**. By leveraging the **Model Context Protocol (MCP)** and **FHIR (Fast Healthcare Interoperability Resources)**, Link proactively monitors a patient's health record during the critical 72-hour window after discharge.
+## 🛡️ The Solution
+This Model Context Protocol (MCP) server exposes secure, read-only clinical tools that allow any compatible AI agent to bridge this gap by querying live **FHIR (Fast Healthcare Interoperability Resources)** data.
 
-Link doesn't just read data; it synthesizes it into clinical intelligence for the receiving primary care physician (PCP).
-
-### Key Capabilities
-- **👻 Ghost Lab Detection**: Identifies pending or preliminary diagnostic reports that were ordered during a hospital stay but not finalized before discharge.
-- **💊 Medication Reconciliation**: Correlates discharge medications with the patient's active condition list to identify potential conflicts or gaps.
-- **⚠️ Risk Stratification**: Assesses the clinical risk level (Low, Elevated, or Critical) by correlating pending results with the patient's existing diagnoses.
-- **📋 Clinical Handover**: Generates structured, clinician-ready reports for PCPs, ensuring no critical data falls through the cracks.
+### Key Tools
+- **👻 GetPendingLabs**: Identifies pending or preliminary diagnostic reports (`DiagnosticReport`) that were ordered during a hospital stay but not finalized before discharge.
+- **💊 GetDischargeMedications**: Retrieves active medications (`MedicationRequest`) for a patient to support medication reconciliation during care transitions.
+- **📋 GetActiveConditions**: Retrieves the patient's active diagnoses (`Condition`), essential for clinical risk assessment.
 
 ---
 
 ## 🏗️ Technical Architecture
 
-Link is built on a modular, secure, and interoperable stack designed for modern healthcare environments.
+Built using **FastMCP**, this server is designed for high-stakes healthcare environments:
 
-### 1. Link MCP Server (`/mcp_server`)
-Built using **FastMCP**, this component acts as the secure gateway to the hospital's FHIR server.
-- **FHIR Integration**: Uses a custom-patched capability set to support the `ai.promptopinion/fhir-context` extension. This allows for dynamic injection of FHIR server URLs, bearer tokens, and patient IDs via A2A (Agent-to-Agent) metadata.
-- **Clinical Tools**:
-  - `GetPendingLabs`: Queries `DiagnosticReport` resources for non-finalized results.
-  - `GetDischargeMedications`: Fetches `MedicationRequest` resources.
-  - `GetActiveConditions`: Retrieves `Condition` resources for clinical context.
-
-### 2. Link Agent (`/link_agent`)
-The brain of the system, built using the **Google Agent Development Kit (ADK)**.
-- **Reasoning Engine**: Powered by Gemini (via LiteLLM), Link follows a strict clinical workflow:
-  1. Identity confirmation.
-  2. Diagnostic report auditing.
-  3. Medication reconciliation.
-  4. Diagnostic correlation.
-  5. Structured synthesis.
-- **Context Awareness**: Uses a `before_model_callback` to extract FHIR credentials from incoming message metadata, ensuring zero-trust security and stateless operation.
+- **Context-Aware Security**: Uses a patched capability set to support the `ai.promptopinion/fhir-context` extension. This allows the host platform to dynamically inject FHIR server URLs and bearer tokens via metadata, ensuring the server remains stateless and secure.
+- **FHIR R4 Interoperability**: Built to query standard HL7 FHIR resources, making it compatible with major EHR systems like Epic, Cerner, and Google Cloud Healthcare API.
+- **Stateless Operation**: No patient data is stored on the MCP server; it acts as a real-time bridge between the AI and the health record.
 
 ---
 
 ## 🛠️ How it Works (Simply)
 
-1. **Context Injection**: When a request is made to Link (e.g., from the Prompt Opinion platform), the patient's FHIR credentials are encrypted and passed in the metadata.
-2. **Dynamic Discovery**: Link's MCP server advertises its need for FHIR context. The platform provides this context, which Link's agent then uses to authenticate against the electronic health record (EHR).
-3. **Tool Execution**: The agent calls specialized tools to pull specific medical data.
-4. **Clinical Synthesis**: Link processes the raw FHIR data (which is often messy and nested) and turns it into a human-readable handover report.
+1. **Discovery**: The MCP server advertises its clinical capabilities and its requirement for FHIR context (URL/Token).
+2. **Context Injection**: When an agent calls a tool, the host platform (like Prompt Opinion) injects the patient's secure FHIR credentials into the request metadata.
+3. **FHIR Querying**: The server uses these credentials to perform real-time searches against the hospital's FHIR server.
+4. **Data Synthesis**: The server processes raw, complex FHIR JSON and returns clean, clinically relevant snippets to the AI agent.
 
 ---
 
@@ -57,31 +40,26 @@ The brain of the system, built using the **Google Agent Development Kit (ADK)**.
 
 ### Prerequisites
 - Python 3.10+
-- Access to a FHIR R4 server (or a sandbox like Epic/Cerner)
-- Google AI Studio API Key (for Gemini)
+- Access to a FHIR R4 server (or sandbox)
 
 ### Installation
 1. Clone the repository:
    ```bash
    git clone https://github.com/Abdulnasserh/link.git
    ```
-2. Install dependencies for the MCP server:
+2. Install dependencies:
    ```bash
    cd mcp_server
    pip install -r requirements.txt
    ```
-3. Install dependencies for the Agent:
+3. Run the server:
    ```bash
-   cd ../link_agent
-   pip install -r requirements.txt
+   python mcp_server/main.py
    ```
 
 ---
 
 ## 👨‍⚖️ For the Judges
-Link represents the future of interoperable healthcare AI. By combining the **Model Context Protocol** with **HL7 FHIR standards**, we have created an agent that is:
-- **Scalable**: Works across any hospital system that supports FHIR.
-- **Secure**: Uses metadata-based credential injection rather than hardcoded keys.
-- **Clinically Relevant**: Solves a specific, high-cost problem in the US healthcare system (Transition of Care).
+The Link MCP Server demonstrates how **Standardized Interoperability (FHIR)** combined with **Standardized Tooling (MCP)** can solve critical, high-cost healthcare problems. By providing agents with the "eyes" to see pending labs and medications, we can prevent medical errors and improve patient safety during the most vulnerable 72 hours after hospital discharge.
 
 Built with ❤️ for the **Prompt Opinion / MCP Hackathon**.

@@ -1,22 +1,11 @@
 version: "3.9"
 
 services:
-  # ── MCP Server (Superpowers) ──────────────────────────────────────────────
-  mcp-server:
+  # ── Link MCP Server (Post-Discharge Superpowers) ─────────────────────────
+  link-mcp-server:
     build:
       context: ./mcp_server
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    restart: unless-stopped
-
-  # ── A2A Agent (Link) ──────────────────────────────────────────────────────
-  link-agent:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8001:8001"
-    env_file:
-      - .env
     restart: unless-stopped
