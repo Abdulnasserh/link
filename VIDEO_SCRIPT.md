@@ -1,34 +1,35 @@
-# 🎥 Link: Demo Video Script (Optimized for NotebookLM & Judges)
+# 🎥 Link: Demo Video Script (With Live Demo Slot)
 
 ## [0:00-0:15] The Hook: The Black Hole
-**Visual**: A dark screen with a single hospital heart monitor "beep." Text appears: "THE POST-DISCHARGE BLACK HOLE."
-**Narrator**: "You’ve just been discharged from the hospital. You're home, you're resting. But there's a ticking time bomb. 100% of patients leave the hospital with pending lab results—results that no one is watching because you’re no longer in a hospital bed."
+**Visual**: Dark screen with hospital monitor "beep." Text: "THE POST-DISCHARGE BLACK HOLE."
+**Narrator**: "You’ve just been discharged. You're home. But there's a ticking time bomb: 100% of patients leave with pending lab results that no one is watching. These are 'Ghost Results'—critical data that arrives after you've gone home."
 
-## [0:15-0:40] The Problem: Ghost Results & Medication Collisions
-**Visual**: Fast-paced graphics showing statistics: 40% of tests are critical. 60% medication errors. 8% hospital penalties.
-**Narrator**: "These are 'Ghost Results.' Critical data that arrives 24, 48, or 72 hours after you’ve gone home. In 2026, healthcare is faster than ever, yet 60% of patients face medication errors during this transition. For hospitals, it’s a financial nightmare. For patients, it’s a life-threatening gap in care."
+## [0:15-0:40] The Problem: Why It Matters
+**Visual**: Fast graphics showing: 40% critical results missed. 60% medication errors.
+**Narrator**: "In 2026, healthcare is faster than ever, yet patients are falling through the cracks. Medication collisions and missed labs lead to avoidable readmissions and hospital penalties. We built Link to bridge this dangerous gap."
 
-## [0:40-1:10] The Solution: Introducing Link
-**Visual**: The Link Logo (🔗) appearing on screen. Transitioning to a clean UI showing the MCP Server architecture.
-**Narrator**: "Introducing Link. The first interoperable AI safety net built to automate the 'Last Mile' of patient discharge. Link isn't just an app; it's a bridge. It uses the Model Context Protocol—or MCP—to deploy a 'Digital Sentry' that stays behind at the hospital."
+## [0:40-1:00] The Solution: Link
+**Visual**: Link Logo (🔗). Architecture overview showing the MCP Server.
+**Narrator**: "Link is an interoperable AI safety net. It uses the Model Context Protocol to deploy a 'Digital Sentry' that stays behind at the hospital, continuously monitoring FHIR records for finalized results."
 
-## [1:10-1:40] How it Works: MCP + FHIR + SHARP
-**Visual**: A technical diagram. 
-1. MCP Server polling FHIR. 
-2. SHARP Extension passing context. 
-3. AI Agent analyzing a "Final" lab result.
-**Narrator**: "While you’re at home, Link’s MCP server is continuously polling the hospital’s FHIR server. Using the SHARP extension, it securely propagates your context without ever storing your data. The moment a 'Ghost Lab' turns final, Link’s intelligence catches it. It reconciles your new medications with your home records, flagging dangerous collisions before you even take the first pill."
+## [1:00-2:30] 🚀 LIVE DEMO: Link in Action
+**Visual**: **[SWITCH TO SCREEN RECORDING]**
+*   **Step 1**: Show the MCP Server running.
+*   **Step 2**: Show the Tool Discovery (listing `GetPendingLabs`, `GetDischargeMedications`).
+*   **Step 3**: Trigger a tool call. Show the raw FHIR data being transformed into clinical intelligence.
+*   **Step 4**: Show the "Smart Brief" generated for the clinician.
+**Narrator (Live or Overlaid)**: *"Here you can see the Link MCP server in action. It's connected to a live FHIR sandbox. Notice how it advertises its clinical tools. When the platform injects the secure patient context, Link instantly pulls the 'Ghost Labs' that were pending at discharge. It identifies a critical potassium level and a medication overlap, synthesizing it into this actionable Smart Brief for the doctor."*
 
-## [1:40-2:00] The Action: Closing the Loop
-**Visual**: A smartphone showing a "Smart Brief" for a doctor. Text: "TASK GENERATED."
-**Narrator**: "Instead of a 20-page PDF, Link sends your doctor a 'Smart Brief.' It identifies the red flags, generates a FHIR Task for the clinic staff, and gives you clear instructions. We’ve closed the loop. No more lost data. No more lost patients."
+## [2:30-3:00] The Impact: Closing the Loop
+**Visual**: A smartphone showing a "Task Created" notification. 
+**Narrator**: "Link doesn't just notify; it acts. It generates FHIR Tasks for clinic staff and simple instructions for the patient. We’ve turned a 'Ghost Result' into a real-world medical action. We’ve closed the loop."
 
-## [2:00-2:15] Conclusion: The Future of Care
-**Visual**: Link Logo with the text: "Built for the Prompt Opinion / MCP Hackathon."
+## [3:00-3:15] Conclusion: The Future of Care
+**Visual**: Link Logo: "Built for the Prompt Opinion / MCP Hackathon."
 **Narrator**: "Link. Bridging the gap. Saving the transition. Ensuring no one is ever lost in the black hole again."
 
 ---
 
-### 💡 Tips for NotebookLM:
-*   **Source Material**: Upload the `DEVPOST.md` and this `VIDEO_SCRIPT.md` to NotebookLM.
-*   **Prompt for Audio Overview**: *"Create a deep-dive conversation between two clinical tech experts discussing how Link uses MCP and FHIR to solve the post-discharge black hole problem. Focus on the 'Ghost Lab' detection and the SHARP security model."*
+### 💡 How to use this with NotebookLM:
+1.  **Generate Audio**: Upload this script. Use the "Audio Overview" to get the voices for the intro and outro.
+2.  **The Demo Gap**: During the "Live Demo" section (1:00-2:30), you can either keep the AI narration or switch to your own voice to explain the specific technical details you are showing on screen.
