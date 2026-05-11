@@ -3,6 +3,7 @@ from mcp.server.fastmcp import FastMCP
 from tools.pending_labs_tool import get_pending_labs
 from tools.discharge_medications_tool import get_discharge_medications
 from tools.active_conditions_tool import get_active_conditions
+from tools.find_patient_tool import find_patient
 
 mcp = FastMCP("Link Post-Discharge MCP", stateless_http=True, host="0.0.0.0")
 
@@ -44,3 +45,8 @@ mcp.tool(
     name="GetActiveConditions",
     description="Retrieves the patient's active conditions and diagnoses, needed for post-discharge clinical risk assessment.",
 )(get_active_conditions)
+
+mcp.tool(
+    name="FindPatient",
+    description="Searches for a patient by name and returns their ID. Useful for identifying the correct patient context.",
+)(find_patient)
